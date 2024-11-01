@@ -21,6 +21,4 @@ mycursor.executemany(sql, val)
 
 mydb.commit()
 
-print(mycursor.rowcount, "was inserted.")
-
-#Viene utilizzata la funzione executemany per inserire più record contemporaneamente nella tabella customers. Dopo l'inserimento, commit() salva le modifiche e stampa il numero di record inseriti.
+print(mycursor.rowcount, "dati inseriti.")
