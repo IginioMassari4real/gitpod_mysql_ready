@@ -1,24 +1,27 @@
 import mysql.connector
 
-mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password=""
-)
+# Funzione per connettersi al database
+def connect_to_db():
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="Animali"
+    )
 
-mycursor = mydb.cursor()
-
-sql = "INSERT INTO Mammiferi (id INT AUTO_INCREMENT PRIMARY KEY, nome_proprio VARCHAR(255), razza VARCHAR(255), peso INT, eta INT) VALUES (%s, %s)"
-val = [
-  ('Leone', 'mammifero', '200', '30'),
-  ('Balena', 'mammifero', '1000', '25'),
-  ('Delfino', 'mammifero', '200', '35'),
-  ('Elefante', 'mammifero', '900', '40'),
-  ('Lupo', 'mammifero', '150', '20'),
+# Dati degli animali da inserire
+animali = [
+    ("Bella", "Golden Retriever", 30, 5),
+    ("Charlie", "Bulldog", 25, 4),
+    ("Max", "Beagle", 15, 3),
+    ("Lucy", "Chihuahua", 3, 2),
+    ("Rocky", "Husky", 40, 6)
 ]
 
-mycursor.executemany(sql, val)
+# Connessione al database e inserimento degli animali
+mydb = connect_to_db()
+mycursor = mydb.cursor()
 
+sql = "INSERT INTO Mammiferi (Nome_Proprio, Razza, Peso, Eta) VALUES (%s, %s, %s, %s)"
+mycursor.executemany(sql, animali)
 mydb.commit()
-
-print(mycursor.rowcount, "dati inseriti.")
